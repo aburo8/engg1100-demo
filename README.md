@@ -27,7 +27,7 @@ To run an example follow these steps:
 Examples List -
 
 - [IR Motor Remote Control](#ir-motor-control-motor_control_demo)
-- [IR Remote Controller Mapping](#ir-remote-mapping)
+- [IR Remote Controller Mapping](#ir-remote-mapping-ir_receiver_test)
 
 After an example which isn't in this repository?!?!?! Luckily there are plenty of resources out there! Give the following a try -
 
@@ -54,7 +54,7 @@ This example demonstrates how an IR controller can be used to easily control som
 
 ![IR Motor Control Circuit Diagram](assets/IR_Motor_Control_bb.png)
 
-## IR Remote Mapping
+## IR Remote Mapping (IR_Receiver_Test)
 
 This example demonstrates how you can use an IR receiver to map the buttons of an IR controller.
 
