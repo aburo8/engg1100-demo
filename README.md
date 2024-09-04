@@ -36,6 +36,8 @@ After an example which isn't in this repository?!?!?! Luckily there are plenty o
 
 ## IR Motor Control (motor_control_demo)
 
+![IR Motor Control](assets/IR_Motor_Control.jpg)
+
 This example demonstrates how an IR controller can be used to easily control some type of motor using a PWM Signal.
 
 ### What you will need -
@@ -45,8 +47,12 @@ This example demonstrates how an IR controller can be used to easily control som
 - IR Remote
 - Motor/Winch
 - Motor Shield (Or other adequate power source)
+- LED
+- 220 Ohm Resistor
 
 ### Circuit Diagram
+
+![IR Motor Control Circuit Diagram](assets/IR_Motor_Control_bb.png)
 
 ## IR Remote Mapping
 
