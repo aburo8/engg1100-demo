@@ -2,20 +2,7 @@
 Arduino IR Motor Control Demonstration
 Written by AB
 */
-
-/* There are two main types of motors that you might need to use
-1. Servo Motor
-  - These are motors which rotate an arm between 0-180 degrees (sometimes 0-360). These can be controlled using the built-in Arduino Servo library.
-2. DC Motor
-  - These are simple motors. They have 2-3 terminals (depending on the motor). Usually, hobby DC motors have a +ve & -ve terminal, and you change the speed by varying
-   "duty cycle" of the +ve pin signal.
-In this demo I will show you how to control both a servo and a DC Motor
-*/
-
-/*
-What goes here?
-At the top section of the code you put any 'global' variables - things that you need to access in any of the other functions (i.e. setup & loop)
-*/
+#include <IRremote.hpp>
 #include <AFMotor.h>
 
 // Define Hardware Constants & Variables
@@ -34,6 +21,18 @@ At the top section of the code you put any 'global' variables - things that you 
 // Define the motor object
 AF_DCMotor motor(3); // create motor #3, 64KHz pwm (this is handled by the library)
 
+// IR Codes
+#define ON_BTN 0x3
+#define OFF_BTN 0x2
+#define BR_DOWN 0x1
+#define BR_UP 0x0
+
+// Speed Controls
+int speed = 100; // Speed Variable (max is 255, min 10)
+#define SPEED_UP 0
+#define SLOW_DOWN 1
+#define INCREMENT 10
+
 void setup() {
   // Setup Motor
   motor.setSpeed(0);  // Set the inital motor speed to 0
@@ -50,13 +49,62 @@ void setup() {
 }
 
 void loop() {
-  motor.run(FORWARD); // Run the motor forward
-  motor.setSpeed(100);
-  digitalWrite(LED_PIN, HIGH); // Turn the LED on
-  delay(2000); // Wait for 2 seconds
+  // IR Data Processsing
+  if (IrReceiver.decode()) {
+    // Print out the captured IR Packet
+    // IrReceiver.printIRResultShort(&Serial); // Print complete received data in one line
+    // Serial.println(IrReceiver.decodedIRData.decodedRawData, HEX); // Print "old" raw data
+    // IrReceiver.printIRSendUsage(&Serial);   // Print the statement required to send this data
+  
+    // Peripheral Control
+    if (IrReceiver.decodedIRData.command == ON_BTN) {
+      // Turn on our LED
+      digitalWrite(LED_PIN, HIGH);
 
-  motor.setSpeed(0);
-  motor.run(RELEASE); // Stop the motor
-  digitalWrite(LED_PIN, LOW); // Turn the LED off
-  delay(2000); // Wait for 2 seconds
+      // Turn on our motor
+      Serial.print("Motor On, Speed: ");
+      Serial.println(speed);
+      motor.run(FORWARD);
+      motor.setSpeed(speed); // 100/255
+    } else if (IrReceiver.decodedIRData.command == OFF_BTN) {
+      // Turn off our LED
+      digitalWrite(LED_PIN, LOW);
+
+      // Turn off our motor
+      Serial.println("Motor Off");
+      motor.run(RELEASE);
+      motor.setSpeed(0);
+    } else if (IrReceiver.decodedIRData.command == BR_UP) {
+      // Speed up
+      Serial.print("Speed Up, Speed: ");
+      Serial.println(speed);
+      updateMotorSpeed(SPEED_UP);
+      motor.run(FORWARD);
+      motor.setSpeed(speed);
+    } else if (IrReceiver.decodedIRData.command == BR_DOWN) {
+      // Slow down
+      Serial.print("Slow Down, Speed: ");
+      Serial.println(speed);
+      updateMotorSpeed(SLOW_DOWN);
+      motor.run(FORWARD);
+      motor.setSpeed(speed);
+    }
+    IrReceiver.resume();
+  }
+}
+
+/*
+Updates the motor speed by +/- INCREMENT.
+ctrl -> 1 for speeding up, 0 for slowing down.
+*/
+void updateMotorSpeed(int ctrl) {
+  // ctrl is ctrlid
+  if (ctrl == SPEED_UP || ctrl == SLOW_DOWN) {
+    // Updated the speed variable
+    if (ctrl == SPEED_UP && speed >= 10 && speed <= (250 - INCREMENT)) {
+      speed = speed + INCREMENT;
+    } else if (ctrl == SLOW_DOWN && speed >= (10 + INCREMENT) && speed <= 250) {
+      speed = speed - INCREMENT;
+    }
+  }
 }
