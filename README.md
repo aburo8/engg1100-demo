@@ -66,6 +66,7 @@ This example demonstrates how you can use an IR receiver to map the buttons of a
 
 ### Circuit Diagram
 
+![IR Receiver Circuit Diagram](assets/IR_Receiving_bb.png)
 
 ## Notes & Acknowledgments
 
