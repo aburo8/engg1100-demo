@@ -54,6 +54,32 @@ This example demonstrates how an IR controller can be used to easily control som
 
 ![IR Motor Control Circuit Diagram](assets/IR_Motor_Control_bb.png)
 
+## IR Winch Control (winch_control_demo)
+
+![IR Motor Control](assets/IR_Motor_Control.jpg)
+
+This example demonstrates how an IR controller can be used to easily control a winch (or servo motor) using a PWM signal.
+
+### What you will need -
+
+- Arduino Uno
+- IR Receiver
+- IR Remote
+- Servo Motor/Winch
+- Motor Shield (Or other adequate power source)
+- LED (Optional)
+- 220 Ohm Resistor (Optional)
+- Breadboard (Optional)
+
+### Circuit Diagram
+
+![IR Motor Control Circuit Diagram](assets/IR_Motor_Control_bb.png)
+
+<div style="position: relative; width: 100%; padding-top: calc(max(56.25%, 400px));">
+  <iframe src="https://app.cirkitdesigner.com/project/45640246-2843-42db-9cdd-673c36bb35af?view=interactive_preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+</div>
+<!--Please include the following link, which help us continue to improve and support the embed, making it a valuable tool for your audience.--> <p style= "margin-top: 5px;" >Edit this project interactively in <a href="https://app.cirkitdesigner.com/project/45640246-2843-42db-9cdd-673c36bb35af" target = "_blank">Cirkit Designer</a>.</p>
+
 ## IR Remote Mapping (IR_Receiver_Test)
 
 This example demonstrates how you can use an IR receiver to map the buttons of an IR controller.
