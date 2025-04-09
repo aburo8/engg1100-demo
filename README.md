@@ -27,6 +27,7 @@ To run an example follow these steps:
 Examples List -
 
 - [IR Motor Remote Control](#ir-motor-control-motor_control_demo)
+- [IR Winch Remote Control](#ir-winch-control-winch_control_demo)
 - [IR Remote Controller Mapping](#ir-remote-mapping-ir_receiver_test)
 
 After an example which isn't in this repository?!?!?! Luckily there are plenty of resources out there! Give the following a try -
@@ -73,12 +74,9 @@ This example demonstrates how an IR controller can be used to easily control a w
 
 ### Circuit Diagram
 
-![IR Motor Control Circuit Diagram](assets/IR_Motor_Control_bb.png)
+![IR Motor Control Circuit Diagram](assets/IR_Winch_Control_Circuit.png)
 
-<div style="position: relative; width: 100%; padding-top: calc(max(56.25%, 400px));">
-  <iframe src="https://app.cirkitdesigner.com/project/45640246-2843-42db-9cdd-673c36bb35af?view=interactive_preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
-</div>
-<!--Please include the following link, which help us continue to improve and support the embed, making it a valuable tool for your audience.--> <p style= "margin-top: 5px;" >Edit this project interactively in <a href="https://app.cirkitdesigner.com/project/45640246-2843-42db-9cdd-673c36bb35af" target = "_blank">Cirkit Designer</a>.</p>
+[Click here for an interactive viewer!](https://app.cirkitdesigner.com/project/45640246-2843-42db-9cdd-673c36bb35af)
 
 ## IR Remote Mapping (IR_Receiver_Test)
 
