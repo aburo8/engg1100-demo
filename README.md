@@ -2,6 +2,8 @@
 
 This repository contains various Arduino code examples to assist engineering students in their first year team project course.
 
+If you attended a presentation session, you can view the associated slides [here](https://github.com/aburo8/engg1100-demo/tree/master/presentations).
+
 ## Getting Started
 
 These examples are designed for you to be able to easily follow along! To get started you will need to have the Arduino IDE installed and the access to the associated hardware.
