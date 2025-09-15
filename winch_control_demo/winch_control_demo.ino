@@ -6,15 +6,15 @@ Written by AB
 #include <Servo.h>
 
 // Define Hardware Constants & Variables
-#define SERVO_PIN_1 10
-#define SERVO_PIN_2 9
+#define SERVO_PIN_1 9
+#define SERVO_PIN_2 10
 // NOTE: This pin comes from the "datasheet" of my motorshield. If you are using a motorshield check the datasheet and select the appropriate pin.
 
 // LED Setup
 #define LED_PIN 13 // Connect an optional LED to output the system state
 
 // Define pins used for the IR Sensor - note we are using the pins exposed on the motor shield.
-#define IR_SENSOR_PIN 9
+#define IR_SENSOR_PIN 10
 
 // Define winch object
 // Winches are typically controlled using a PWM speed controller. You can interface with this with the servo library.
