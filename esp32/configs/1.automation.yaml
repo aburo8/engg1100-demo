@@ -1,0 +1,75 @@
+# ============================================
+# ESPHome config – ESP32 LED + Button + Wi-Fi AP + AUTOMATION
+# ============================================
+
+# --- Device identity ---
+# "name" is how this device appears on the network.
+# "friendly_name" is the human-readable label shown in dashboards.
+esphome:
+  name: my-esp32
+  friendly_name: My ESP32
+
+# --- Board selection ---
+# We are using the generic "esp32dev" board (ESP-WROOM-32).
+esp32:
+  board: esp32dev
+
+# --- Logging ---
+# Prints debug messages over the USB serial port (115200 baud).
+# Handy for troubleshooting – open the serial monitor to see them.
+logger:
+
+# --- Wi-Fi Access Point (AP) mode ---
+# The ESP32 creates its own Wi-Fi network.
+# Connect your phone/laptop to it directly – no router needed.
+wifi:
+  # No station (STA) config — AP-only mode.
+  # reboot_timeout: 0s prevents the device from rebooting
+  # when it can't find a Wi-Fi network to join (expected here).
+  reboot_timeout: 0s
+  ap:
+    ssid: "MY_ESP32"
+    password: !secret wifi_password
+    # Explicitly set the AP's IP so we know exactly where the web server is.
+    manual_ip:
+      static_ip: 192.168.4.1
+      gateway: 192.168.4.1
+      subnet: 255.255.255.0
+
+# --- Web server ---
+# Serves a simple control page at http://192.168.4.1
+# (that is the default IP when the ESP32 is in AP mode).
+web_server:
+  port: 80
+
+# --- LED on GPIO5 ---
+# https://esphome.io/components/switch/gpio/
+# A simple on/off switch shown on the web page.
+# Flip the toggle to turn the LED on or off.
+switch:
+  - platform: gpio
+    name: "LED"
+    id: led                    # id so automations can reference this switch
+    pin: GPIO5                 # the pin your LED is wired to
+
+# --- Button on GPIO23 ---
+# https://esphome.io/components/binary_sensor/gpio.html
+# Reads the button state and shows it on the web page.
+# INPUT_PULLUP means the pin is HIGH by default;
+# pressing the button pulls it LOW, so we invert the logic.
+binary_sensor:
+  - platform: gpio
+    name: "Button"
+    pin:
+      number: GPIO23
+      mode: INPUT_PULLUP      # use the built-in pull-up resistor
+      inverted: true           # pressed = ON, released = OFF
+    # --- Automation ---
+    # When the button is pressed, turn the LED on.
+    # When the button is released, turn the LED off.
+    on_press:
+      then:
+        - switch.turn_on: led
+    on_release:
+      then:
+        - switch.turn_off: led

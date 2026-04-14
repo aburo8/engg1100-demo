@@ -1,0 +1,87 @@
+# ============================================
+# ESPHome config – Servo controlled by MPU6050 X-axis
+# ============================================
+# Tilting the MPU6050 along the X-axis controls
+# the continuous servo speed and direction.
+
+# --- Device identity ---
+esphome:
+  name: my-esp32
+  friendly_name: My ESP32
+
+# --- Board selection ---
+esp32:
+  board: esp32dev
+
+# --- Logging ---
+logger:
+
+# --- Wi-Fi Access Point (AP) mode ---
+wifi:
+  reboot_timeout: 0s
+  ap:
+    ssid: "MY_ESP32"
+    password: !secret wifi_password
+    manual_ip:
+      static_ip: 192.168.4.1
+      gateway: 192.168.4.1
+      subnet: 255.255.255.0
+
+# --- Web server at http://192.168.4.1 ---
+web_server:
+  port: 80
+
+# --- I2C bus (for MPU6050) ---
+# SDA = GPIO21, SCL = GPIO22
+i2c:
+  - id: bus1
+    sda: GPIO21
+    scl: GPIO22
+    scan: true
+
+# --- MPU6050 sensor ---
+# We read all axes but only Accel X drives the servo.
+# The on_value_range automation below maps the X reading
+# to the servo level every time the sensor updates.
+sensor:
+  - platform: mpu6050
+    i2c_id: bus1
+    address: 0x68
+
+    accel_x:
+      name: "Accel X"
+      id: accel_x
+      # --- Automation ---
+      # Each time a new X reading arrives, map it to servo speed.
+      # Accel X ranges roughly from -1 g to +1 g when tilted.
+      # We clamp to [-1, 1] and pass it directly as the servo level
+      # (-1.0 = full reverse, 0 = stop, +1.0 = full forward).
+      on_value:
+        then:
+          - servo.write:
+              id: my_servo
+              level: !lambda |-
+                // clamp the reading to -1.0 … 1.0
+                float v = x;
+                if (v > 1.0) v = 1.0;
+                if (v < -1.0) v = -1.0;
+                return v;
+
+    update_interval: 100ms    # fast updates for responsive control
+
+# --- PWM output on GPIO26 (for servo) ---
+output:
+  - platform: ledc
+    id: servo_pwm
+    pin: GPIO26
+    frequency: 50 Hz
+
+# --- Continuous servo ---
+# -1.0 → 5% duty (full speed one way)
+#  0.0 → 7.5% duty (stopped)
+# +1.0 → 10% duty (full speed other way)
+servo:
+  - id: my_servo
+    output: servo_pwm
+    min_level: 5%
+    max_level: 10%
