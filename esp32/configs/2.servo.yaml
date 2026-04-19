@@ -1,0 +1,86 @@
+# ============================================
+# ESPHome config – ESP32 Continuous Servo + Wi-Fi AP
+# ============================================
+
+# --- Device identity ---
+# "name" is how this device appears on the network.
+# "friendly_name" is the human-readable label shown in dashboards.
+esphome:
+  name: my-esp32
+  friendly_name: My ESP32
+
+# --- Board selection ---
+# We are using the generic "esp32dev" board (ESP-WROOM-32).
+esp32:
+  board: esp32dev
+
+# --- Logging ---
+# Prints debug messages over the USB serial port (115200 baud).
+# Handy for troubleshooting – open the serial monitor to see them.
+logger:
+
+# --- Wi-Fi Access Point (AP) mode ---
+# The ESP32 creates its own Wi-Fi network.
+# Connect your phone/laptop to it directly – no router needed.
+wifi:
+  # No station (STA) config — AP-only mode.
+  # reboot_timeout: 0s prevents the device from rebooting
+  # when it can't find a Wi-Fi network to join (expected here).
+  reboot_timeout: 0s
+  ap:
+    ssid: "MY_ESP32"
+    password: !secret wifi_password
+    # Explicitly set the AP's IP so we know exactly where the web server is.
+    manual_ip:
+      static_ip: 192.168.4.1
+      gateway: 192.168.4.1
+      subnet: 255.255.255.0
+
+# --- Web server ---
+# Serves a simple control page at http://192.168.4.1
+# (that is the default IP when the ESP32 is in AP mode).
+# Set local: true to serve the web UI without external CDN dependencies.
+web_server:
+  port: 80
+  local: true
+
+# --- PWM output on GPIO26 ---
+# https://esphome.io/components/servo/
+# Continuous servos use a 50 Hz PWM signal just like standard servos.
+# The duty cycle controls speed & direction instead of angle:
+#   ~1.5 ms pulse (mid) = stopped
+#   <1.5 ms = spin one direction
+#   >1.5 ms = spin the other direction
+output:
+  - platform: ledc            # LEDC is the ESP32's built-in PWM peripheral
+    id: servo_pwm
+    pin: GPIO26               # physical pin the servo signal wire connects to
+    frequency: 50 Hz          # standard servo frequency
+
+# --- Servo component ---
+# Maps a -100% … +100% level to the PWM duty cycle range.
+#   -100% = full speed one direction  (5% duty)
+#    0%   = stopped                   (7.5% duty)
+#   +100% = full speed other direction (10% duty)
+servo:
+  - id: my_servo
+    output: servo_pwm
+    min_level: 5%             # duty cycle at -100%
+    max_level: 10%            # duty cycle at +100%
+
+# --- Speed slider ---
+# Creates a slider on the web page (http://192.168.4.1).
+# Drag it to control the servo speed and direction.
+number:
+  - platform: template
+    name: "Servo Speed"
+    id: servo_speed
+    min_value: -100
+    max_value: 100
+    step: 10
+    initial_value: 0          # start stopped
+    optimistic: true          # update the slider value immediately
+    set_action:
+      - servo.write:
+          id: my_servo
+          level: !lambda "return x / 100.0;"   # convert -100…100 to -1.0…1.0

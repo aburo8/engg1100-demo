@@ -1,0 +1,88 @@
+# ============================================
+# ESPHome config – ESP32 MPU6050 + Wi-Fi AP
+# ============================================
+
+# --- Device identity ---
+# "name" is how this device appears on the network.
+# "friendly_name" is the human-readable label shown in dashboards.
+esphome:
+  name: my-esp32
+  friendly_name: My ESP32
+
+# --- Board selection ---
+# We are using the generic "esp32dev" board (ESP-WROOM-32).
+esp32:
+  board: esp32dev
+
+# --- Logging ---
+# Prints debug messages over the USB serial port (115200 baud).
+# Handy for troubleshooting – open the serial monitor to see them.
+logger:
+
+# --- Wi-Fi Access Point (AP) mode ---
+# The ESP32 creates its own Wi-Fi network.
+# Connect your phone/laptop to it directly – no router needed.
+wifi:
+  # No station (STA) config — AP-only mode.
+  # reboot_timeout: 0s prevents the device from rebooting
+  # when it can't find a Wi-Fi network to join (expected here).
+  reboot_timeout: 0s
+  ap:
+    ssid: "MY_ESP32"
+    password: !secret wifi_password
+    # Explicitly set the AP's IP so we know exactly where the web server is.
+    manual_ip:
+      static_ip: 192.168.4.1
+      gateway: 192.168.4.1
+      subnet: 255.255.255.0
+
+# --- Web server ---
+# Serves a simple control page at http://192.168.4.1
+# (that is the default IP when the ESP32 is in AP mode).
+# Set local: true to serve the web UI without external CDN dependencies.
+web_server:
+  port: 80
+  local: true
+
+# --- I2C bus ---
+# The MPU6050 communicates over I2C.
+# ESP32 has two I2C ports; here we use I2C bus 1 (id: bus1).
+# Default I2C pins on ESP32:  SDA = GPIO21,  SCL = GPIO22
+i2c:
+  - id: bus1
+    sda: GPIO21               # data line – connect MPU6050 SDA here
+    scl: GPIO22               # clock line – connect MPU6050 SCL here
+    scan: true                # scan for devices on boot (shown in logs)
+
+# --- MPU6050 sensor ---
+# https://esphome.io/components/sensor/mpu6050/
+# Reads acceleration (g) on X/Y/Z and gyroscope (°/s) on X/Y/Z,
+# plus the chip's internal temperature.
+# Default I2C address is 0x68 (AD0 pin low).
+# All values are shown on the web page and update every 1 second.
+sensor:
+  - platform: mpu6050
+    i2c_id: bus1
+    address: 0x68             # use 0x69 if AD0 pin is pulled high
+
+    # Acceleration in g (1 g ≈ 9.81 m/s²)
+    accel_x:
+      name: "Accel X"
+    accel_y:
+      name: "Accel Y"
+    accel_z:
+      name: "Accel Z"
+
+    # Gyroscope in °/s
+    gyro_x:
+      name: "Gyro X"
+    gyro_y:
+      name: "Gyro Y"
+    gyro_z:
+      name: "Gyro Z"
+
+    # On-chip temperature sensor
+    temperature:
+      name: "MPU6050 Temperature"
+
+    update_interval: 1s       # how often to read the sensor
