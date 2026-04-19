@@ -31,6 +31,15 @@ The ESP32 runs in **Wi-Fi Access Point mode** and hosts a web server at `http://
 
 4. **Connect your ESP32** via USB and follow the notebook cells in order.
 
+## Network Configuration
+
+All demo configs run the ESP32 in **Wi-Fi Access Point (AP) mode**:
+- The ESP32 creates its own network: `MY_ESP32` (password in `secrets.yaml`)
+- No internet connection or router needed — it acts as its own gateway
+- Access the web dashboard at **`http://192.168.4.1`** from any connected device
+
+Each config includes `web_server: local: true`, which embeds the web UI directly on the ESP32. This ensures the interface works without external CDN dependencies, making it ideal for offline/isolated environments where the device is the only network gateway.
+
 ## Workshop Demos
 
 Each demo builds on the previous one. Flash a config with:

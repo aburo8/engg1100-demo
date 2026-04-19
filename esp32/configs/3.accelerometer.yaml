@@ -39,8 +39,10 @@ wifi:
 # --- Web server ---
 # Serves a simple control page at http://192.168.4.1
 # (that is the default IP when the ESP32 is in AP mode).
+# Set local: true to serve the web UI without external CDN dependencies.
 web_server:
   port: 80
+  local: true
 
 # --- I2C bus ---
 # The MPU6050 communicates over I2C.
