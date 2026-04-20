@@ -1,4 +1,4 @@
-# ESP32 Sensing (esp32_sensing)
+# ESP32 Game Servo Control with Game Controller (esp32_remote_servo_control)
 
 This example demonstrates how you can use a Bluetooth Low Energy (BLE) game controller to operate an LED and a servo motor. We will configure the left joystick on the controller to operate the servo and use the buttons to operate the LED.
 
@@ -13,4 +13,4 @@ This example demonstrates how you can use a Bluetooth Low Energy (BLE) game cont
 
 ## Circuit Diagram
 
-![ESP32 Sensing Circuit Diagram](../assets/ESP32_Sensing.png)
+![ESP32 Game Controller Circuit Diagram](../assets/ESP32_Servo_Control.png)
