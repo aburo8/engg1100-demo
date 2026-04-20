@@ -1,6 +1,6 @@
-# ENGG1100 Arduino Examples
+# ENGG1100 Arduino IDE Examples
 
-This repository contains various Arduino code examples to assist engineering students in their first year team project course.
+This repository contains various Arduino IDE code examples to assist engineering students in their first year team project course.
 
 If you attended a presentation session, you can view the associated slides [here](https://github.com/aburo8/engg1100-demo/tree/master/presentations).
 
@@ -10,7 +10,7 @@ These examples are designed for you to be able to easily follow along! To get st
 
 ### Arduino IDE Installation
 
-The easiest way to write code for an Arduino is using the Arduino IDE. An IDE is an Integrated Development Environment, this is basically a code editor which contains some extra neat features like a debugger. Download the latest version of the Arduino IDE for your platform of choice [here](https://www.arduino.cc/en/software)!
+The easiest way to write code for a micro-controller is using the Arduino IDE. An IDE is an Integrated Development Environment, this is basically a code editor which contains some extra neat features like a debugger. Download the latest version of the Arduino IDE for your platform of choice [here](https://www.arduino.cc/en/software)!
 
 ### Running Examples
 
@@ -19,8 +19,8 @@ To run an example follow these steps:
 1. Download (or clone) this codebase from GitHub to your local computer. You can do this by pressing the **green button** in the top right corner which says `<>Code`.
 2. Open the Arduino IDE. Select `File -> Open` then navigate to the example you wish to run.
 3. Configure your board type by selecting `Tools -> Board -> Arduino AVR Boards -> Arduino Uno`. *Note: if you are using a different board, make sure you select the appropriate option*.
-4. Connect your Arduino board to the computer using the USB cable.
-5. Configure your Connection Port by selecting `Tools -> Port -> COMX (Arduino Uno)`. *Note: if you are on Windows, your ports will be in the COMX format, don't worry about the number just select the port which says (Arduino Uno). If you are on a Unix based system (like MaxOS), your ports will look something like /dev/ttyUSB0. Again=, just select the port which says (Arduino Uno)*.
+4. Connect your board to the computer using the USB cable.
+5. Configure your Connection Port by selecting `Tools -> Port -> COMX (Arduino Uno)`. *Note: if you are on Windows, your ports will be in the COMX format, don't worry about the number just select the port which has your board name e.g. Arduino Uno. If you are on a Unix based system (like MaxOS), your ports will look something like /dev/ttyUSB0. Again, just select the port which says board name*.
 6. Assemble the hardware for the example you are trying to run. Do this by following the hardware instructions below for the specified example.
 7. Press the `->` icon in the top left of the IDE to upload the example code to the Arduino board.
 8. BAM! You are now running the code example!
@@ -28,71 +28,23 @@ To run an example follow these steps:
 
 Examples List -
 
+Not all of our demo code will work *out of the box* with any micro-controller. We have split out examples up into Arduino (ATmega boards) and ESP32 boards.
+
+Arduino (ATmega) Boards -
 - [IR Motor Remote Control](#ir-motor-control-motor_control_demo)
 - [IR Winch Remote Control](#ir-winch-control-winch_control_demo)
 - [IR Remote Controller Mapping](#ir-remote-mapping-ir_receiver_test)
+
+ESP32 Boards -
+- [ESP32 Sensing](#ir-motor-control-motor_control_demo)
+- [ESP32 Remote Controlled Servo Control](#ir-motor-control-motor_control_demo)
+- [ESP32 Simple Web Server](#ir-motor-control-motor_control_demo)
+- [ESP32 ESP Home Workshop - NO CODE NEEDED!](#ir-motor-control-motor_control_demo)
 
 After an example which isn't in this repository?!?!?! Luckily there are plenty of resources out there! Give the following a try -
 
 - [Arduino Official Built-In Examples](https://docs.arduino.cc/built-in-examples/) - These are fantastic way to get started! You can access these examples directly from within the Arduino IDE by selecting `File -> Examples`!
 - Google (or Generative AI), there are a plethora of Arduino code samples scattered across the internet you just need to search for them. Generative AI tools like ChatGPT can also be a great way to generate an obscure or niche code example. Proceed with *CAUTION* though, not all examples are 100% accurate (or working).
-
-## IR Motor Control (motor_control_demo)
-
-![IR Motor Control](assets/IR_Motor_Control.jpg)
-
-This example demonstrates how an IR controller can be used to easily control some type of motor using a PWM Signal.
-
-### What you will need -
-
-- Arduino Uno
-- IR Receiver
-- IR Remote
-- Motor/Winch
-- Motor Shield (Or other adequate power source)
-- LED
-- 220 Ohm Resistor
-
-### Circuit Diagram
-
-![IR Motor Control Circuit Diagram](assets/IR_Motor_Control_bb.png)
-
-## IR Winch Control (winch_control_demo)
-
-![IR Motor Control](assets/IR_Motor_Control.jpg)
-
-This example demonstrates how an IR controller can be used to easily control a winch (or servo motor) using a PWM signal.
-
-### What you will need -
-
-- Arduino Uno
-- IR Receiver
-- IR Remote
-- Servo Motor/Winch
-- Motor Shield (Or other adequate power source)
-- LED (Optional)
-- 220 Ohm Resistor (Optional)
-- Breadboard (Optional)
-
-### Circuit Diagram
-
-![IR Motor Control Circuit Diagram](assets/IR_Winch_Control_Circuit.png)
-
-[Click here for an interactive viewer!](https://app.cirkitdesigner.com/project/45640246-2843-42db-9cdd-673c36bb35af)
-
-## IR Remote Mapping (IR_Receiver_Test)
-
-This example demonstrates how you can use an IR receiver to map the buttons of an IR controller.
-
-### What you will need -
-
-- Arduino
-- IR Remote
-- IR Receiver
-
-### Circuit Diagram
-
-![IR Receiver Circuit Diagram](assets/IR_Receiving_bb.png)
 
 ## Notes & Acknowledgments
 
