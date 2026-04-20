@@ -31,15 +31,15 @@ Examples List -
 Not all of our demo code will work *out of the box* with any micro-controller. We have split out examples up into Arduino (ATmega boards) and ESP32 boards.
 
 Arduino (ATmega) Boards -
-- [IR Motor Remote Control](#ir-motor-control-motor_control_demo)
-- [IR Winch Remote Control](#ir-winch-control-winch_control_demo)
-- [IR Remote Controller Mapping](#ir-remote-mapping-ir_receiver_test)
+- [IR Motor Remote Control](https://github.com/aburo8/engg1100-demo/tree/master/motor_control_demo)
+- [IR Winch Remote Control](https://github.com/aburo8/engg1100-demo/tree/master/winch_control_demo)
+- [IR Remote Controller Mapping](https://github.com/aburo8/engg1100-demo/tree/master/IR_Receiver_Test)
 
 ESP32 Boards -
-- [ESP32 Sensing](#ir-motor-control-motor_control_demo)
-- [ESP32 Remote Controlled Servo Control](#ir-motor-control-motor_control_demo)
-- [ESP32 Simple Web Server](#ir-motor-control-motor_control_demo)
-- [ESP32 ESP Home Workshop - NO CODE NEEDED!](#ir-motor-control-motor_control_demo)
+- [ESP32 Sensing](https://github.com/aburo8/engg1100-demo/tree/master/esp32_sensing)
+- [ESP32 Remote Controlled Servo Control](https://github.com/aburo8/engg1100-demo/tree/master/esp32_remote_servo_control)
+- [ESP32 Simple Web Server](https://github.com/aburo8/engg1100-demo/tree/master/esp32_simple_web_server)
+- [ESP32 ESP Home Workshop - NO CODE NEEDED!](https://github.com/aburo8/engg1100-demo/tree/master/esp32_esp_home_workshop)
 
 After an example which isn't in this repository?!?!?! Luckily there are plenty of resources out there! Give the following a try -
 
