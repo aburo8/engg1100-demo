@@ -5,8 +5,9 @@ This example demonstrates how you can use a Bluetooth Low Energy (BLE) game cont
 ## What you will need -
 
 - ESP-32 Development Board (Note original ESP32 can connect to both classic Bluetooth and BLE Devices other kits like S3 or C3 can only interface with BLE controllers)
-- Xbox One Wireless COntroller
+- Xbox One Wireless Controller
 - Servo Motor
+- Push Button (Optional)
 - LED (Optional - you can use the onboard LED if you wish)
 - 220 Ohm Resistor (Optional)
 - Breadboard (Optional)

@@ -1,2 +1,5 @@
 *.fzz
 !esp32/fritzing/*
+
+# OS Files
+.DS_Store
